@@ -1,0 +1,41 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity CounterDias2 is
+	port( enable : in std_logic;
+			upDown : in std_logic;
+			Q : out std_logic_vector(3 downto 0);
+			TC : out std_logic);
+end CounterDias2;
+
+architecture v2 of CounterDias2 is
+	signal s_count : unsigned(3 downto 0);
+	
+begin
+u1: entity work.CounterDias1(v1)
+		port map( TC => enable;
+					 uporDown => upDown);
+		
+		
+	if(enable = '1') then
+		if(upDown = '0') then
+			s_count <= s_count -1;
+		else
+			s_count <= s_count + 1;
+		end if
+		if(s_count <= "0011") then
+			TC <= '1';
+		else
+			TC <= '0';
+		end if;
+		if(s_count >= "0100") then
+			s_count <= "0000";
+		end if;
+	end if
+	Q <= std_logic_vector(s_count);
+end v2;
+		
+		
+		
+					 

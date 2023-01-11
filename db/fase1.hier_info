@@ -1,0 +1,31 @@
+|Dec5_BCD
+output1[0] <= output1[0]$latch.DB_MAX_OUTPUT_PORT_TYPE
+output1[1] <= output1[1]$latch.DB_MAX_OUTPUT_PORT_TYPE
+output1[2] <= <GND>
+output1[3] <= <GND>
+output2[0] <= <GND>
+output2[1] <= <GND>
+output2[2] <= <GND>
+output2[3] <= <GND>
+
+
+|Dec5_BCD|CounterDias1:u1
+clk => TC~reg0.CLK
+clk => s_count[0].CLK
+clk => s_count[1].CLK
+clk => s_count[2].CLK
+clk => s_count[3].CLK
+clk => s_count[4].CLK
+upDown => s_count.OUTPUTSELECT
+upDown => s_count.OUTPUTSELECT
+upDown => s_count.OUTPUTSELECT
+upDown => s_count.OUTPUTSELECT
+upDown => s_count.OUTPUTSELECT
+count[0] <= s_count[0].DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= s_count[1].DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= s_count[2].DB_MAX_OUTPUT_PORT_TYPE
+count[3] <= s_count[3].DB_MAX_OUTPUT_PORT_TYPE
+count[4] <= s_count[4].DB_MAX_OUTPUT_PORT_TYPE
+TC <= TC~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

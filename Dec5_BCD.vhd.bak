@@ -1,0 +1,26 @@
+library ieee;
+usc ieee.std_logic_1164.all;
+
+entity Dec5_BCD is
+	port( 
+			inputs : in std_logic_vector(4 downto 0);
+			output1 : out std_logic_vector(3 downto 0);
+			output2 : out std_logic_vector(3 downto 0));
+end Dec5_BCD;
+
+architecture v1 of Dec5_BCD is
+	signal inp : unsigned(4 downto 0);
+	signal clk : std_logic;
+	signal upDown : std_logic;
+begin
+
+u1:	work entity.CounterDias1
+			port map(clk => clk,
+						upDown => upDown,
+						count => inp);
+						
+	outputs(0) <= enable and (not inputs(1)) and (not inputs(0));
+	outputs(1) <= enable and (not inputs(1)) and ( inputs(0));
+	outputs(2) <= enable and ( inputs(1)) and (not inputs(0));
+	outputs(3) <= enable and ( inputs(1)) and ( inputs(0));
+	end v1;

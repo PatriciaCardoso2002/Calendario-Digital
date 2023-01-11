@@ -1,0 +1,77 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity Dec5_BCDmes is
+	port( 
+--			inputs : in std_logic_vector(4 downto 0);
+			output1 : out std_logic_vector(3 downto 0);
+			output2 : out std_logic_vector(3 downto 0));
+end Dec5_BCDmes;
+
+architecture v1 of Dec5_BCDmes is
+	signal pp : std_logic_vector(4 downto 0);
+	signal clk : std_logic;
+	signal upDown : std_logic;
+	signal inp : unsigned(4 downto 0);
+begin
+
+u1:	entity work.CounterDias1(v1)
+			port map(clk => clk,
+						upDown => upDown,
+						count => pp);
+	process(pp)
+	begin
+	inp <= unsigned(pp);
+						
+	if(inp >= "11110") then
+		output1 <= "0011";
+		if(inp > "11110") then
+			output2 <= "0001";
+		else
+			output2 <= "0000";
+		end if;
+	end if;
+	if(inp < "11110" and inp >= "10100") then
+		output1 <= "0010";
+		output2 <=  "0000" when inp = "10100" else
+						"0001" when inp = "10101" else
+						"0010" when inp = "10110" else
+						"0011" when inp = "10111" else
+						"0100" when inp = "11000" else
+						"0101" when inp = "11001" else
+						"0110" when inp = "11010" else
+						"0111" when inp = "11011" else
+						"1000" when inp = "11100" else
+						"1001" when inp = "11101";		
+	end if;
+	if(inp < "10100" and inp >= "01010") then
+		output1 <= "0001";
+		output2 <=  "0000" when inp = "01010" else
+						"0001" when inp = "01011" else
+						"0010" when inp = "01100" else
+						"0011" when inp = "01101" else
+						"0100" when inp = "01110" else
+						"0101" when inp = "01111" else
+						"0110" when inp = "10000" else
+						"0111" when inp = "10001" else
+						"1000" when inp = "10010" else
+						"1001" when inp = "10011";
+		
+	end if;
+	if(inp < "01010") then
+		output1 <= "0000";
+		output2 <=  "0000" when inp = "00000" else
+						"0001" when inp = "00001" else
+						"0010" when inp = "00010" else
+						"0011" when inp = "00011" else
+						"0100" when inp = "00100" else
+						"0101" when inp = "00101" else
+						"0110" when inp = "00110" else
+						"0111" when inp = "00111" else
+						"1000" when inp = "01000" else
+						"1001" when inp = "01001";		
+	end if;
+	end process;
+--	inputs <= std_logic_vector(inp);
+end v1;
